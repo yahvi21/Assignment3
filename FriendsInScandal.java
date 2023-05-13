@@ -39,6 +39,7 @@ class Assignment3 {
                 System.out.printf("Email address (%s) not found in the dataset.\n", email);
                 continue;
             }
+            //Output
             System.out.printf("* %s has sent messages to %d others\n", email, x);
             System.out.printf("* %s has received messages from %d others\n", email, y);
             System.out.printf("* %s is in a team with %d individuals\n", email, z);
@@ -56,7 +57,7 @@ class Assignment3 {
         }
     }
 
-    //Using recursive method to read file 
+    //Using recursion to read file 
     private static void readDataSet(String path) {
 
         File file = new File(path);
@@ -93,10 +94,12 @@ class Assignment3 {
                 int start = text.indexOf("From: ") + 6;
                 int end = text.indexOf("To: ");
                 from = text.substring(start, end);
-
-                //if (!from.endsWith("@enron.com")) {
-                //  return;
-                //}
+                
+                /* if (!email.endsWith("@enron.com")) {
+                        continue;
+                    }
+                */
+                
                 text = text.substring(end);
                 if (!text.startsWith("To: ")) {
                     return;
@@ -109,15 +112,18 @@ class Assignment3 {
                 try {
                     to = text.substring(start, end);
                 } catch (Exception e) {
-                    //System.out.println(x);
-                    //System.exit(0);
+                //System.out.println(x);
+                //System.exit(0); 
                 }
                 to = to.replaceAll("\\s+", "");
                 String[] to_arr = to.split(",");
                 for (String email : to_arr) {
-                    if (!email.endsWith("@enron.com")) {
+                    
+                 /* if (!email.endsWith("@enron.com")) {
                         continue;
                     }
+                  */
+                    
                     if (!map.containsKey(from)) {
                         map.put(from, new ArrayList<>());
                     }
@@ -174,11 +180,9 @@ class Assignment3 {
     }
     /* private static void DFS(String user,int v, boolean[] visited)
     {
-        // Mark the current node as visited and print it
+        
         visited[v] = true;
         System.out.print(map.get(user).get(v) + " ");
-        // Recur for all the vertices
-        // adjacent to this vertex
         for (String x : map.get(user)) {
             if (!visited[x])
                 DFS(x, visited);
