@@ -20,4 +20,4 @@ I am getting the correct count for emails sent and recieved of an induvidual, wh
 
 For Requirement 3. My DFS is not implementing correctly. I have commented my progress of all I could figure out how to do that part.
 
-
+It takes about 2 minutes for reading all the dataset when I found the count of valid emails.
