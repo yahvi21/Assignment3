@@ -175,8 +175,8 @@ class FriendsInScandal {
         /* boolean[] visited = new boolean[map.get(user).size()];
         for (int v = 0; v < map.get(user).size(); ++v) {
             if (!visited[v]) {
-                // print all reachable vertices
-                // from v
+                // print all reachable vertices from v
+                
                 DFS(user, v, visited);
                 System.out.println();
             }
