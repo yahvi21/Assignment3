@@ -76,7 +76,8 @@ class FriendsInScandal {
         }
 
     }
-
+    
+    //This Method reads files
     private static void readFile(String path) {
 
         String from = null;
@@ -102,6 +103,7 @@ class FriendsInScandal {
                         continue;
                     }
                 */
+               
                 // Extract the email address(es) of the receiver(s) from the text file.
                 text = text.substring(end);
                 if (!text.startsWith("To: ")) {
@@ -167,7 +169,8 @@ class FriendsInScandal {
         }
         return count;
     }
-
+    
+    //This method returns team size
     private static int getTeamSize(String user) {
         /* boolean[] visited = new boolean[map.get(user).size()];
         for (int v = 0; v < map.get(user).size(); ++v) {
