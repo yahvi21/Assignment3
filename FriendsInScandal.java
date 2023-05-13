@@ -5,7 +5,7 @@ import java.io.*;
  *
  * @author yahvibhatnagar
  */
-class Assignment3 {
+class FriendsInScandal {
 
     // declare a HashMap that maps email addresses to the list of people they sent emails to
     private static HashMap<String, ArrayList<String>> map = new HashMap();
@@ -45,6 +45,7 @@ class Assignment3 {
             System.out.printf("* %s is in a team with %d individuals\n", email, z);
             if (args.length == 2) {
 
+                // If an output file is specified in the command-line arguments, write the results to the file
                 try {
                     FileWriter writer = new FileWriter(args[1], true);
                     writer.write(email + "-" + z + "\n");
@@ -57,7 +58,8 @@ class Assignment3 {
         }
     }
 
-    //Using recursion to read file 
+    //If the path points to a file, it calls the 'readFile' method to read the file. 
+    //If the path points to a directory, it recursively calls itself on all subdirectories and files. 
     private static void readDataSet(String path) {
 
         File file = new File(path);
@@ -66,7 +68,7 @@ class Assignment3 {
             readFile(path);
             ++fileCount;
         } else {
-            // get a list of all the directories in the main directory
+            // get a list of all the sub directories in the main directory
             File[] subFiles = file.listFiles();
             for (File subFile : subFiles) {
                 readDataSet(path + "/" + subFile.getName());
@@ -90,16 +92,17 @@ class Assignment3 {
             if (text.contains("From: ") && text.contains("To: ") && text.contains("Subject: ")) {
                 String x = text;
 
-                //read email after To on text file
+                // Extract the email address of the sender from the text file.
                 int start = text.indexOf("From: ") + 6;
                 int end = text.indexOf("To: ");
                 from = text.substring(start, end);
                 
+                // Skip this email if the sender's email address does not end with "@enron.com".            
                 /* if (!email.endsWith("@enron.com")) {
                         continue;
                     }
                 */
-                
+                // Extract the email address(es) of the receiver(s) from the text file.
                 text = text.substring(end);
                 if (!text.startsWith("To: ")) {
                     return;
@@ -115,15 +118,21 @@ class Assignment3 {
                 //System.out.println(x);
                 //System.exit(0); 
                 }
+                
+                // Remove any whitespace from the email address(es) of the receiver(s).
                 to = to.replaceAll("\\s+", "");
+                
+                // Split the email address(es) of the receiver(s) by comma and add them to the map.
                 String[] to_arr = to.split(",");
                 for (String email : to_arr) {
                     
-                 /* if (!email.endsWith("@enron.com")) {
+                // Skip this email if the receiver's email address does not end with "@enron.com".                    
+                /* if (!email.endsWith("@enron.com")) {
                         continue;
                     }
-                  */
+                */
                     
+                    // Add the receiver's email address to the list of recipients for the sender's email address.
                     if (!map.containsKey(from)) {
                         map.put(from, new ArrayList<>());
                     }
@@ -138,7 +147,8 @@ class Assignment3 {
         }
     }
 
-    // This method returns the number of emails sent by a specific user
+    // This method returns the number of emails sent by a specific user.
+    // If the user is not found in the map, it returns -1.
     private static int getSent(String user) {
         if (map.containsKey(user)) {
             return map.get(user).size();
